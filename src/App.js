@@ -70,8 +70,17 @@ function App() {
       return {
         ...prevState,
         [name]: value,
+        id: new Date().getTime(),
       };
     });
+  };
+
+  const handleDelete = (id) => {
+    const updatedExpenses = [...expenses].filter(
+      (expenses) => expenses.id !== id
+    );
+
+    setExpenses(updatedExpenses);
   };
 
   const handleAdd = () => {
@@ -97,7 +106,7 @@ function App() {
       setTotalPositive(total);
       return total;
     }, 0);
-  }, [positiveValues]);
+  }, [positiveValues, expenses]);
 
   // filtra expenses negativas e adiciona em uma variavel, essa variavel apos isso é mapeada e retornado apenas o valor, e nao as outras propriedades, apos isso eh inserido apenas os valores no negativeValues state
   useEffect(() => {
@@ -141,13 +150,14 @@ function App() {
           return (
             <CardSeparator>
               <History
+                deleteItem={() => handleDelete(item.id)}
                 openModal={handleOpenModal}
                 value={item.transactionValue}
                 title={
                   item.transactionText.charAt(0).toUpperCase() +
                   item.transactionText.slice(1)
                 }
-                key={item.transactionText}
+                key={item.id}
               />
             </CardSeparator>
           );

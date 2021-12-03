@@ -57,13 +57,13 @@ function History(props) {
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    Ao confirmar, esse item será deletado, caso queira você pode
-                    readicioná-lo.
+                    Ao deletar, seu saldo será recalculado, caso queira você
+                    pode readicionar esse item no futuro.
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>CANCELAR</Button>
-                  <Button onClick={handleClose} autoFocus>
+                  <Button onClick={props.deleteItem} autoFocus>
                     DELETAR
                   </Button>
                 </DialogActions>
