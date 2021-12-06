@@ -34,7 +34,9 @@ function History(props) {
   };
   return (
     <div>
-      <Card sx={{ display: "flex" }}>
+      <Card
+        sx={{ display: "flex", borderRight: `5px solid ${props.colorHistory}` }}
+      >
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <CardContent sx={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" color="text.secondary" component="div">

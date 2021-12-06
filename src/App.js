@@ -51,6 +51,7 @@ function App() {
   const [transaction, setTransaction] = useState({
     transactionText: "",
     transactionValue: "",
+    negativeOrPositive: "",
   });
   const [expenses, setExpenses] = useState([]);
   const [total, setTotal] = useState(0);
@@ -74,6 +75,24 @@ function App() {
       };
     });
   };
+
+  // useEffect(() => {
+  //   if (transaction.transactionValue > 0) {
+  //     setExpenses((prevState) => {
+  //       return {
+  //         ...prevState,
+  //         negativeOrPositive: "green",
+  //       };
+  //     });
+  //   } else {
+  //     setExpenses((prevState) => {
+  //       return {
+  //         ...prevState,
+  //         negativeOrPositive: "red",
+  //       };
+  //     });
+  //   }
+  // }, [transaction]);
 
   const handleDelete = (id) => {
     const updatedExpenses = [...expenses].filter(
@@ -101,6 +120,9 @@ function App() {
   }, [expenses]);
 
   useEffect(() => {
+    if (positiveValues.length === 0) {
+      setTotalPositive(0);
+    }
     positiveValues.reduce((total, current) => {
       total = parseFloat(total) + parseFloat(current);
       setTotalPositive(total);
@@ -123,6 +145,9 @@ function App() {
 
   // aqui é feito a soma de todos os itens do array negativeValues state com reduce, trazendo um total do valor negativo e setando no estado totalNegative.
   useEffect(() => {
+    if (negativeValues.length === 0) {
+      setTotalNegative(0);
+    }
     negativeValues.reduce((total, current) => {
       total = parseFloat(total) + parseFloat(current);
       setTotalNegative(total);
@@ -131,6 +156,9 @@ function App() {
   }, [negativeValues]);
 
   useEffect(() => {
+    if (expenses.length === 0) {
+      setTotal(0);
+    }
     expenses.reduce((total, current) => {
       total = parseFloat(total) + parseFloat(current.transactionValue);
       setTotal(total);
@@ -158,6 +186,7 @@ function App() {
                   item.transactionText.slice(1)
                 }
                 key={item.id}
+                colorHistory={transaction.negativeOrPositive}
               />
             </CardSeparator>
           );
