@@ -31,7 +31,7 @@ export default function BalanceControlCard(props) {
             INCOME
           </Typography>
           <GreenTextTypography variant="subtitle1" color="" component="div">
-            ${props.positive}
+            R$ {props.positive}
           </GreenTextTypography>
         </CardContent>
       </Box>
@@ -48,7 +48,7 @@ export default function BalanceControlCard(props) {
             color="text.secondary"
             component="div"
           >
-            ${props.negative}
+            R$ {props.negative}
           </RedTextTypography>
         </CardContent>
       </Box>

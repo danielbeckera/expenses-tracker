@@ -10,6 +10,10 @@ const ButtonAdd = withStyles({
   root: {
     marginTop: "1em",
     fontWeight: "bold",
+    backgroundColor: "magenta",
+    "&:hover": {
+      background: "#8b008b ",
+    },
   },
 })(Button);
 
@@ -76,6 +80,18 @@ function App() {
     });
   };
 
+  const handleDelete = (id) => {
+    const updatedExpenses = [...expenses].filter(
+      (expenses) => expenses.id !== id
+    );
+    setExpenses(updatedExpenses);
+  };
+
+  const handleAdd = () => {
+    setExpenses((oldArray) => [...oldArray, transaction]);
+    setTransaction({ transactionText: "", transactionValue: "" });
+  };
+
   useEffect(() => {
     if (transaction.transactionValue > 0) {
       setTransaction((prevState) => {
@@ -93,29 +109,6 @@ function App() {
       });
     }
   }, [transaction.transactionValue]);
-
-  const handleDelete = (id) => {
-    const updatedExpenses = [...expenses].filter(
-      (expenses) => expenses.id !== id
-    );
-
-    setExpenses(updatedExpenses);
-  };
-
-  const handleAdd = () => {
-    // if (transaction.transactionValue > 0) {
-    //   setExpenses((oldArray) => [
-    //     ...oldArray,
-    //     transaction,
-    //     (transaction.negativeOrPositive = "green"),
-    //   ]);
-    // } else {
-    //   (transaction.negativeOrPositive = "red"),
-
-    // }
-    setExpenses((oldArray) => [...oldArray, transaction]);
-    setTransaction({ transactionText: "", transactionValue: "" });
-  };
 
   useEffect(() => {
     const onlyPositives = expenses.filter((item) => {
@@ -181,7 +174,7 @@ function App() {
       <OutterContainer>
         <Title>Expenses Tracker</Title>
         <SubTitle>Your balance:</SubTitle>
-        <Balance>${total}</Balance>
+        <Balance>R$ {total}</Balance>
         <BalanceControlCard negative={totalNegative} positive={totalPositive} />
         <SubTitle>History</SubTitle>
         {expenses.map((item) => {
