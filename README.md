@@ -1,1 +1,1 @@
-Simple expenses tracker made with ReactJS.
+## Simple expenses tracker made with ReactJS.
