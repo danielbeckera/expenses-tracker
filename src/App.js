@@ -76,23 +76,23 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   if (transaction.transactionValue > 0) {
-  //     setExpenses((prevState) => {
-  //       return {
-  //         ...prevState,
-  //         negativeOrPositive: "green",
-  //       };
-  //     });
-  //   } else {
-  //     setExpenses((prevState) => {
-  //       return {
-  //         ...prevState,
-  //         negativeOrPositive: "red",
-  //       };
-  //     });
-  //   }
-  // }, [transaction]);
+  useEffect(() => {
+    if (transaction.transactionValue > 0) {
+      setTransaction((prevState) => {
+        return {
+          ...prevState,
+          negativeOrPositive: "green",
+        };
+      });
+    } else if (transaction.transactionValue < 0) {
+      setTransaction((prevState) => {
+        return {
+          ...prevState,
+          negativeOrPositive: "red",
+        };
+      });
+    }
+  }, [transaction.transactionValue]);
 
   const handleDelete = (id) => {
     const updatedExpenses = [...expenses].filter(
@@ -103,6 +103,16 @@ function App() {
   };
 
   const handleAdd = () => {
+    // if (transaction.transactionValue > 0) {
+    //   setExpenses((oldArray) => [
+    //     ...oldArray,
+    //     transaction,
+    //     (transaction.negativeOrPositive = "green"),
+    //   ]);
+    // } else {
+    //   (transaction.negativeOrPositive = "red"),
+
+    // }
     setExpenses((oldArray) => [...oldArray, transaction]);
     setTransaction({ transactionText: "", transactionValue: "" });
   };
@@ -186,7 +196,7 @@ function App() {
                   item.transactionText.slice(1)
                 }
                 key={item.id}
-                colorHistory={transaction.negativeOrPositive}
+                colorHistory={item.negativeOrPositive}
               />
             </CardSeparator>
           );
@@ -215,6 +225,7 @@ function App() {
           }
           onClick={handleAdd}
           variant="contained"
+          type="submit"
         >
           Add transaction
         </ButtonAdd>
